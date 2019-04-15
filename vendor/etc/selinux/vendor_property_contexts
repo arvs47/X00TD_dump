@@ -360,6 +360,7 @@ vendor.debug.camera.prop_bokeh         u:object_r:vendor_camera_prop:s0
 vendor.debug.camera.prop_hdr           u:object_r:vendor_camera_prop:s0
 persist.vendor.camera.bokeh.dumpimg    u:object_r:vendor_camera_prop:s0
 vendor.debug.camera.prop_dis           u:object_r:vendor_camera_prop:s0
+persist.vendor.camera.HAL3.enabled     u:object_r:vendor_camera_prop:s0
 # Huaqin add for ZQL1820P1-371 by huqian at 2018/11/26 end
 # Huaqin add for 1263211 by huqian at 2018/12/06 end
 # Huaqin add for 1264760 by huqian at 2018/12/11 end

@@ -783,7 +783,7 @@
 /dev/dri/renderD128		u:object_r:graphics_device:s0
 /dev/socket/ssgqmig		u:object_r:ssgqmig_socket:s0
 /system/bin/exfatck		--	u:object_r:fsck_exec:s0
-/system/bin/savelogs		u:object_r:dumpstate_exec:s0
+/system/bin/savelogs		u:object_r:savelogs_exec:s0
 /system/bin/exfatvsn		u:object_r:blkid_exec:s0
 /dev/block/mmcblk1p1		u:object_r:sd_device:s0
 /dev/efs_hsic_bridge		u:object_r:efsbridgehsic_device:s0
@@ -816,7 +816,7 @@
 /sys/kernel/hbtp/display_pwr		u:object_r:hbtp_kernel_sysfs:s0
 /system/bin/move_time_data\.sh		u:object_r:move-time-data-sh_exec:s0
 /system/bin/diag_mdlog_system		u:object_r:logoem_exec:s0
-/system/bin/savelogs_complete		u:object_r:savelogscomplete_exec:s0
+/system/bin/savelogs_complete		u:object_r:savelogs_exec:s0
 /dev/coresight-tmc-etr-stream		u:object_r:qdss_device:s0
 /dev/socket/thermal-send-rule		u:object_r:thermal_socket:s0
 /dev/socket/sensor_ctl_socket		u:object_r:sensors_socket:s0
