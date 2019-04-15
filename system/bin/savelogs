@@ -25,9 +25,7 @@ GENERAL_LOG=/sdcard/ASUS/LogUploader/general/sdcard
 #Dumpsys folder
 #DUMPSYS_DIR=/sdcard/ASUS/LogUploader/dumpsys
 #BUGREPORT_PATH=/data/user_de/0/com.android.shell/files
-BUGREPORT_PATH=/sdcard/logs/Bugreports
-
-DUMP_STATE_PATH=/sdcard/logs/
+BUGREPORT_PATH=/sdcard/logs/aplog/Bugreports
 
 savelogs_prop=`getprop persist.asus.savelogs`
 is_tcpdump_status=`getprop init.svc.tcpdump-warp`
@@ -137,14 +135,17 @@ save_general_log() {
 	echo "date > $GENERAL_LOG/date.txt"
 
 	# save dumpstate report
-    echo "dumpstate -q > $GENERAL_LOG/bugreports"
-    dumpstate -d -p -B -z -o /data/user_de/0/com.android.shell/files/bugreports/bugreport
-    chmod -R 777 /data/user_de/0/com.android.shell/files/*
-    cp -arf /data/user_de/0/com.android.shell/files/ $DUMP_STATE_PATH/
-    cp -arf /data/user_de/0/com.android.shell/files/ /storage/emulated/0/ASUS/LogUploader/bugreport
-    #cp -avf $BUGREPORT_PATH/* $GENERAL_LOG/
-    #rm -rf $BUGREPORT_PATH/*
-
+        echo "dumpstate -q > $BUGREPORT_PATH/dumpstate.txt"
+        #dumpstate -q > $GENERAL_LOG/dumpstate.txt
+        #BUGREPORT_PATH=/storage/emulated/0/logs/aplog/Bugreports
+        dumpstate -q -d -z -o $BUGREPORT_PATH/bugreport
+        #for filename in $BUGREPORT_PATH/*; do
+        #    name=${filename##*/}
+        #    cp  $filename $GENERAL_LOG
+        #    rm $filename
+        #done
+        cp -avf $BUGREPORT_PATH/* $GENERAL_LOG/
+        rm -rf $BUGREPORT_PATH/*
 	# Save microp_dump
     micropTest=`cat /sys/class/switch/pfs_pad_ec/state`
 	if [ "${micropTest}" = "1" ]; then
@@ -242,7 +243,7 @@ create_folder() {
 if [ ".$savelogs_prop" == ".0" ]; then
 	remove_folder
 	# Ack BugReporter
-        setprop persist.asus.savelogs.readydump 0
+
         setprop persist.asus.uts com.asus.removelogs.completed
         setprop persist.asus.savelogs.complete 1
         setprop persist.asus.savelogs.complete 0
@@ -318,7 +319,7 @@ elif [ ".$savelogs_prop" == ".3" ]; then
 	chmod -R 777 $TCP_DUMP_LOG
 	chmod -R 777 $GENERAL_LOG
 	sync
-	    setprop persist.asus.savelogs.readydump 1
+	
         setprop persist.asus.uts com.asus.savelogs.completed
         setprop persist.asus.savelogs.complete 1
         setprop persist.asus.savelogs.complete 0
@@ -350,7 +351,6 @@ elif [ ".$savelogs_prop" == ".4" ]; then
         setprop persist.asus.savelogs.dumpstate 0
         setprop persist.asus.savelogs.dumpstate 1
         setprop persist.asus.uts com.asus.savelogs.completed
-        setprop persist.asus.savelogs.readydump 1
 
 	# Ack BugReporter
 	am broadcast -a "com.asus.savelogs.completed"
